@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name         使用CDN加快Pixiv图片加载速度
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      0.1
 // @description  将所有的i.pximg.net替换为pximg.bili33.top来加快Pixiv的图片加载速度
 // @author       GamerNoTitle
 // @match        *://*/*
 // @grant        none
 // @icon         https://www.pixiv.net/favicon.ico
+// @downloadURL  https://cdn.bili33.top/gh/GamerNoTitle/TemperMonkeyScript@master/Change-Pixiv-link-to-personal-one-to-speed-up-loading-picture.js
+// @updateURL    https://cdn.bili33.top/gh/GamerNoTitle/TemperMonkeyScript@master/Change-Pixiv-link-to-personal-one-to-speed-up-loading-picture.js
 // ==/UserScript==
 
 (function() {
