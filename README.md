@@ -8,4 +8,4 @@
   - [Change-Pixiv-link-to-personal-one-to-speed-up-loading-picture.js](https://github.com/GamerNoTitle/TemperMonkeyScript/blob/master/Change-Pixiv-link-to-personal-one-to-speed-up-loading-picture.js)
 - 国区Steam显示成人内容选项
   - [Display-Steam-adult-options-in-CN-account.js](https://github.com/GamerNoTitle/TemperMonkeyScript/blob/master/Display-Steam-adult-options-in-CN-account.js)
-  - ![image](https://github.com/user-attachments/assets/288a1ff5-4ede-4fcb-860d-16c5085d1a51)
+  - ![image](https://github.com/user-attachments/assets/37c5a321-0915-4e1f-b420-9d47fb89641b)
