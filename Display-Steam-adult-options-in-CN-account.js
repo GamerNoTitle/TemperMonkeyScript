@@ -4,7 +4,7 @@
 // @version      1.1
 // @description  自动去除account_setting_not_customer_facing这一class使得成人内容选项可以展示，并添加描述内容
 // @author       GamerNoTitle
-// @match        https://store.steampowered.com/account/preferences
+// @match        https://store.steampowered.com/account/preferences*
 // @grant        none
 // @icon         https://store.steampowered.com/favicon.ico
 // @downloadURL  https://cdn.bili33.top/gh/GamerNoTitle/TemperMonkeyScript@master/Display-Steam-adult-options-in-CN-account.js
