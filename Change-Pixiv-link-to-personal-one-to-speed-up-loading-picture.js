@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  将所有的i.pximg.net替换为pximg.bili33.top来加快Pixiv的图片加载速度
 // @author       GamerNoTitle
-// @match        *://*/*
+// @match        *://pixiv.net/*
 // @grant        none
 // @icon         https://www.pixiv.net/favicon.ico
 // @downloadURL  https://cdn.bili33.top/gh/GamerNoTitle/TemperMonkeyScript@master/Change-Pixiv-link-to-personal-one-to-speed-up-loading-picture.js
