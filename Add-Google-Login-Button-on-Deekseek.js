@@ -6,6 +6,7 @@
 // @author       GamerNoTitle
 // @match        *://chat.deepseek.com/*
 // @grant        none
+// @license      GPLv3
 // ==/UserScript==
 
 (function() {
