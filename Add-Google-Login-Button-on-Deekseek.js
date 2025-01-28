@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         在大陆的Deepseek登录页面中添加Google登录方式
+// @name         在中国大陆的Deepseek登录页面中添加Google登录方式
 // @namespace    http://tampermonkey.net/
 // @version      0.4
 // @description  因为Deepseek会检测IP并且检测方式比较严格，导致我开规则代理无法突破此检测，遂写下该脚本，在大陆的Deepseek登录页面中添加Google登录方式
