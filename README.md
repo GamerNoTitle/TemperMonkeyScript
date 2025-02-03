@@ -14,3 +14,6 @@
 - 在中国大陆的Deepseek登录页面中添加Google登录方式
   - [在中国大陆的Deepseek登录页面中添加Google登录方式 - Greasyfork](https://greasyfork.org/zh-CN/scripts/525119-%E5%9C%A8%E5%A4%A7%E9%99%86%E7%9A%84deepseek%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E4%B8%AD%E6%B7%BB%E5%8A%A0google%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F)
   - ![](https://assets.bili33.top/img/Github/TemperMonkeyScript/msedge_GGJxuV8qST.png)
+- 在个人的 Github 资料页添加 Pro 标识（仅本地有效）
+  - [I'm Pro - Greasyfork](https://greasyfork.org/zh-CN/scripts/525713-i-m-pro)
+  - ![](https://assets.bili33.top/img/Github/TemperMonkeyScript/chrome_V8rlFjjHwK.png)
