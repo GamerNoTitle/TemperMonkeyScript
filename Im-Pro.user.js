@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         I'm Pro
-// @name:zh-TW   I'm Pro
-// @name:en      I'm Pro
+// @name         I'm Pro：在 Github 页面添加 Pro 标识
+// @name:zh-TW   I'm Pro：在 Github 頁面添加 Pro 標識
+// @name:en      I'm Pro: Add a Github Pro badge to your Github profile
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  在自己的 Github 页面个人资料页上添加 Github Pro 标识（仅本地有效）
