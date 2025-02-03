@@ -1,11 +1,16 @@
 // ==UserScript==
 // @name         I'm Pro
+// @name:zh-TW   I'm Pro
+// @name:en      I'm Pro
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  在自己的 Github 页面个人资料页上添加 Github Pro 标识（仅本地有效）
+// @description:zh-TW 在自己的 Github 頁面個人資料頁上添加 Github Pro 標識（僅本地有效）
+// @description:en Add a Github Pro badge to your Github profile page (local display only)
 // @author       GamerNoTitle
 // @match        https://github.com/*
 // @icon         https://github.githubassets.com/favicons/favicon-dark.png
+// @license      GPLv3
 // @grant        none
 // ==/UserScript==
 
@@ -67,5 +72,6 @@
 
     // 页面加载后执行
     window.addEventListener('load', main);
+    // 处理GitHub的异步加载
     document.addEventListener('pjax:end', main);
 })();
