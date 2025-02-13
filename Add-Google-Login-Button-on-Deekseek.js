@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         在中国大陆的Deepseek登录页面中添加Google登录方式
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @description  因为Deepseek会检测IP并且检测方式比较严格，导致我开规则代理无法突破此检测，遂写下该脚本，在大陆的Deepseek登录页面中添加Google登录方式
 // @icon         https://cdn.deepseek.com/chat/icon.png
 // @author       GamerNoTitle
@@ -39,10 +39,19 @@
         }
 
         const wechatLoginButton = document.querySelector(wechatButtonSelector);
+        var retryTimes = 0;
 
         if (!wechatLoginButton || !wechatLoginButton.textContent.includes('使用微信扫码登录')) {
-            console.warn("未找到微信登录按钮，或者按钮文本不匹配，无法添加 Google 登录按钮。");
-            observer.disconnect();
+            if(!wechatLoginButton) {
+                console.warn("[Add-Google-Login-Button-on-Deekseek] 找不到微信按钮，正在重试……");
+            } else {
+                console.warn("[Add-Google-Login-Button-on-Deekseek] 按钮文本不匹配，正在重试……");
+            }
+            if (retryTimes >= 10) {
+                console.error("[Add-Google-Login-Button-on-Deekseek] 已经到达最大重试次数！不再尝试添加 Google 登录按钮！");
+            }
+            retryTimes++;
+            // observer.disconnect();
             return;
         }
 
@@ -63,6 +72,7 @@
         });
 
         wechatLoginButton.parentNode.insertBefore(googleLoginButton, wechatLoginButton.nextSibling);
+        console.info("[Add-Google-Login-Button-on-Deekseek] 成功添加了 Google 登录按钮！");
     }
 
     const observer = new MutationObserver(addGoogleLoginButton);
