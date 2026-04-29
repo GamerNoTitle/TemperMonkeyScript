@@ -1,11 +1,10 @@
 // ==UserScript==
 // @name         在中国大陆的Deepseek登录页面中添加Google登录方式
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.1.1
 // @description  在大陆的Deepseek登录页面中添加Google登录方式
 // @author       GamerNoTitle
 // @match        *://chat.deepseek.com/*
-// @match        *://platform.deepseek.com/*
 // @grant        none
 // ==/UserScript==
 
