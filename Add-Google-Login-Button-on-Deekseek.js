@@ -1,14 +1,12 @@
 // ==UserScript==
 // @name         在中国大陆的Deepseek登录页面中添加Google登录方式
 // @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  【已更新新版登录页面】因为Deepseek会检测IP并且检测方式比较严格，导致我开规则代理无法突破此检测，遂写下该脚本，在大陆的Deepseek登录页面中添加Google登录方式
-// @icon         https://cdn.deepseek.com/chat/icon.png
+// @version      1.1
+// @description  在大陆的Deepseek登录页面中添加Google登录方式
 // @author       GamerNoTitle
 // @match        *://chat.deepseek.com/*
 // @match        *://platform.deepseek.com/*
 // @grant        none
-// @license      GPLv3
 // ==/UserScript==
 
 (function() {
@@ -24,35 +22,39 @@
     }
 
     function addGoogleLoginButton() {
-        let baseUrl, loginButtonSelector, shumeiVerification;
+        const container = document.querySelector(".ds-sign-in-form__social-buttons-container");
+        if (!container) return;
 
-        if (window.location.hostname === 'chat.deepseek.com') {
-            baseUrl = 'https://chat.deepseek.com/api/v0/users/oauth/google/authorize';
-            loginButtonSelector = '.ds-sign-up-form__register-button';
-            shumeiVerification = '{"region":"CN","rid":""}';
-        } else if (window.location.hostname === 'platform.deepseek.com') {
-            baseUrl = 'https://platform.deepseek.com/auth-api/v0/users/oauth/google/authorize';
-            loginButtonSelector = '.ds-sign-up-form__register-button';
-            shumeiVerification = '{%22region%22:%22CN%22,%22rid%22:%22%22}';
-        } else {
-            return;
-        }
+        const buttons = container.querySelectorAll('button');
+        let hasGoogle = false;
 
-        const loginButton = document.querySelector(loginButtonSelector);
-        if (!loginButton) {
-            console.warn("[Google登录] 找不到登录按钮");
-            return;
-        }
+        buttons.forEach(btn => {
+            if (btn.querySelector('path[fill="#4285f4"]') && !btn.hasAttribute('custom-google')) {
+                hasGoogle = true;
+            }
+        });
 
-        // 创建完整的Google登录按钮
-        const googleLoginButton = document.createElement('div');
-        googleLoginButton.role = 'button';
-        googleLoginButton.classList.add('ds-button', 'ds-button--secondary',
-            'ds-button--bordered', 'ds-button--rect', 'ds-button--block', 'ds-button--l');
-        googleLoginButton.tabIndex = 0;
-        googleLoginButton.style.marginBottom = '16px';
-        googleLoginButton.innerHTML = `
-            <div class="ds-button__icon">
+        if (hasGoogle || container.querySelector('[custom-google="true"]')) return;
+
+        const isChat = window.location.hostname === 'chat.deepseek.com';
+        const baseUrl = isChat
+            ? 'https://chat.deepseek.com/api/v0/users/oauth/google/authorize'
+            : 'https://platform.deepseek.com/auth-api/v0/users/oauth/google/authorize';
+
+        const shumeiVerification = isChat
+            ? '{"region":"CN","rid":""}'
+            : '{%22region%22:%22CN%22,%22rid%22:%22%22}';
+
+        const deviceId = generateRandomDeviceId();
+        const googleOAuthURL = `${baseUrl}?os=web&device_id=${deviceId}&shumei_verification=${shumeiVerification}`;
+
+        const googleButton = document.createElement('button');
+        googleButton.setAttribute('custom-google', 'true');
+        googleButton.className = "ds-atom-button ds-basic-button ds-basic-button--outlined ds-sign-in-form__social-button";
+        googleButton.style.cssText = "padding: 5px 14px; font-size: 13px; line-height: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;";
+
+        googleButton.innerHTML = `
+            <div class="ds-icon ds-atom-button__icon" style="font-size: 16px; width: 16px; height: 16px; margin-right: 0px;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" style="width: 16px; height: 16px;">
                     <path fill="#4285f4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/>
                     <path fill="#34a853" d="M9.003 18c2.43 0 4.467-.806 5.956-2.18l-2.909-2.26c-.806.54-1.836.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z"/>
@@ -60,51 +62,20 @@
                     <path fill="#ea4335" d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.428 0 9.002 0 5.485 0 2.44 2.017.96 4.958L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z"/>
                 </svg>
             </div>
-            Log in with Google
+            <span></span>
+            <div class="ds-focus-ring"></div>
         `;
 
-        // 构建OAuth URL
-        const deviceId = generateRandomDeviceId();
-        const googleOAuthURL = `${baseUrl}?os=web&device_id=${deviceId}&shumei_verification=${shumeiVerification}`;
-
-        // 添加点击事件
-        googleLoginButton.addEventListener('click', () => {
+        googleButton.addEventListener('click', () => {
             window.location.href = googleOAuthURL;
         });
 
-        // 插入到登录按钮上方
-        loginButton.parentNode.insertBefore(googleLoginButton, loginButton);
-
-        // 调整间距
-        const spacer = loginButton.previousElementSibling;
-        if (spacer && spacer.style.height === '33px') {
-            spacer.style.height = '16px';
-        }
-
-        console.log("[Google登录] 按钮添加成功");
+        container.appendChild(googleButton);
     }
 
-    // Mutation Observer配置
-    const observerConfig = {
-        childList: true,
-        subtree: true,
-        attributes: false,
-        characterData: false
-    };
-
-    // 使用Mutation Observer确保动态加载
-    const observer = new MutationObserver((mutations) => {
-        if (document.querySelector('.ds-sign-up-form__register-button')) {
-            observer.disconnect();
-            addGoogleLoginButton();
-        }
+    const observer = new MutationObserver(() => {
+        addGoogleLoginButton();
     });
 
-    // 开始监听
-    observer.observe(document.body, observerConfig);
-
-    // 初始尝试
-    if (document.querySelector('.ds-sign-up-form__register-button')) {
-        addGoogleLoginButton();
-    }
+    observer.observe(document.body, { childList: true, subtree: true });
 })();
