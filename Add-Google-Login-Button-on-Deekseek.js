@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         在中国大陆的Deepseek登录页面中添加Google登录方式
 // @namespace    http://tampermonkey.net/
-// @version      1.2.0
+// @version      1.3.0
 // @description  在大陆的Deepseek登录页面中添加Google登录方式
 // @author       GamerNoTitle
 // @match        *://chat.deepseek.com/*
@@ -24,7 +24,7 @@
     }
 
     function addGoogleLoginButton() {
-        const container = document.querySelector(".ds-sign-in-form__social-buttons").querySelector(".ds-sign-in-form__social-links")
+        const container = document.querySelector(".ds-sign-in-form__social-links")
         if (!container) return;
 
         const buttons = container.querySelectorAll("div[role='button']");
@@ -68,18 +68,14 @@
 
         const googleButtonBG = document.createElement('div');
         googleButtonBG.classList.add('ds-button__background');
-        
+
 
         const googleButtonFocusRing = document.createElement('div');
         googleButtonFocusRing.classList.add('ds-focus-ring');
         googleButton.appendChild(googleButtonFocusRing);
 
         const googleButtonText = document.createElement('span');
-        if (window.location.hostname === 'chat.deepseek.com') {
-            googleButtonText.classList.add('ds-button__content');
-        } else {
-            googleButtonText.classList.add('ds-link-button__text');
-        }
+        googleButtonText.classList.add('ds-button__content');
         googleButtonText.textContent = "使用 Google 账号登录";
         googleButton.appendChild(googleButtonText);
 
